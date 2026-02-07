@@ -15,47 +15,39 @@ const stats = [
   { number: "15+", label: "Clients Worldwide" },
 ];
 
-// Text segments — accent segments render in lime italic
-const segments: { text: string; accent: boolean }[] = [
-  {
-    text: "I'm a developer and designer based in Ethiopia who turns bold ideas into ",
-    accent: false,
-  },
-  { text: "polished digital products", accent: true },
-  {
-    text: ". From interactive 3D experiences to full-stack platforms, I obsess over every pixel and every line of code so the end result feels ",
-    accent: false,
-  },
-  { text: "seamless", accent: true },
-  {
-    text: ". Whether it's a web app, a mobile experience, or something completely new, I build things that look beautiful, perform fast, and deliver ",
-    accent: false,
-  },
-  { text: "real business value", accent: true },
-  { text: ".", accent: false },
+const paragraph =
+  "I'm a developer and designer based in Ethiopia who turns bold ideas into polished digital products. From interactive 3D experiences to full-stack platforms, I obsess over every pixel and every line of code so the end result feels seamless. Whether it's a web app, a mobile experience, or something completely new, I build things that look beautiful, perform fast, and deliver real business value.";
+
+const accentPhrases = [
+  "polished digital products.",
+  "seamless.",
+  "real business value.",
 ];
 
-// Flatten all characters with their accent flag
-const chars = segments.flatMap((seg) =>
-  seg.text.split("").map((char) => ({ char, accent: seg.accent }))
-);
+// Split into words while preserving accent info
+const words = paragraph.split(" ").map((word) => {
+  // Check if this word starts or continues an accent phrase
+  const isAccent = accentPhrases.some((phrase) => {
+    const phraseWords = phrase.split(" ");
+    return phraseWords.some(
+      (pw) => pw === word || pw === word + "." || pw === word + ","
+    );
+  });
+  return { word, accent: isAccent };
+});
 
 export default function About() {
-  const sectionRef = useRef(null);
+  const paragraphRef = useRef<HTMLParagraphElement>(null);
   const statsRef = useRef(null);
   const isStatsInView = useInView(statsRef, { once: true, margin: "-100px" });
 
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 0.85", "start 0.15"],
+    target: paragraphRef,
+    offset: ["start 0.9", "start 0.25"],
   });
 
   return (
-    <section
-      id="about"
-      className="py-24 md:py-40 px-6 md:px-12"
-      ref={sectionRef}
-    >
+    <section id="about" className="py-24 md:py-40 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
         <motion.p
           className="text-[10px] tracking-[0.4em] uppercase text-muted mb-8"
@@ -67,16 +59,19 @@ export default function About() {
           ( About )
         </motion.p>
 
-        {/* Per-character scroll opacity text */}
-        <p className="text-2xl md:text-4xl lg:text-[2.75rem] font-normal leading-[1.3] tracking-tight">
-          {chars.map((c, i) => (
-            <ScrollChar
+        {/* Per-word scroll opacity paragraph — Olivier Larose style */}
+        <p
+          ref={paragraphRef}
+          className="text-2xl md:text-4xl lg:text-[2.75rem] font-normal leading-[1.3] tracking-tight flex flex-wrap"
+        >
+          {words.map((w, i) => (
+            <Word
               key={i}
-              char={c.char}
+              word={w.word}
               index={i}
-              total={chars.length}
+              total={words.length}
               progress={scrollYProgress}
-              accent={c.accent}
+              accent={w.accent}
             />
           ))}
         </p>
@@ -107,29 +102,29 @@ export default function About() {
   );
 }
 
-function ScrollChar({
-  char,
+function Word({
+  word,
   index,
   total,
   progress,
   accent,
 }: {
-  char: string;
+  word: string;
   index: number;
   total: number;
   progress: MotionValue<number>;
   accent: boolean;
 }) {
   const start = index / total;
-  const end = Math.min(start + 0.04, 1);
-  const opacity = useTransform(progress, [start, end], [0.12, 1]);
+  const end = start + 1 / total;
+  const opacity = useTransform(progress, [start, end], [0.15, 1]);
 
   return (
     <motion.span
       style={{ opacity }}
-      className={accent ? "italic text-accent font-medium" : ""}
+      className={`mr-[0.25em] ${accent ? "italic text-accent font-medium" : ""}`}
     >
-      {char === " " ? "\u00A0" : char}
+      {word}
     </motion.span>
   );
 }

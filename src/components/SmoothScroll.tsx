@@ -10,10 +10,10 @@ interface SmoothScrollProps {
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.8,
-      easing: (t: number) => 1 - Math.pow(1 - t, 4),
+      duration: 1.3,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      lerp: 0.06,
+      lerp: 0.1,
     });
 
     function raf(time: number) {
