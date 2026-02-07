@@ -8,7 +8,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Yohannes Takata | Creative Developer & Designer",
+  title: "Yohannes Takata — Creative Developer & Designer",
   description:
     "I'm Yohannes Takata, a creative developer and designer turning bold ideas into polished digital products — from interactive 3D experiences to full-stack platforms.",
   keywords: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Yohannes Takata" }],
   openGraph: {
-    title: "Yohannes Takata | Creative Developer & Designer",
+    title: "Yohannes Takata — Creative Developer & Designer",
     description:
       "Turning bold ideas into polished digital products — from interactive 3D experiences to full-stack platforms.",
     url: "https://yohannestakata.com",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yohannes Takata | Creative Developer & Designer",
+    title: "Yohannes Takata — Creative Developer & Designer",
     description:
       "Turning bold ideas into polished digital products — from interactive 3D experiences to full-stack platforms.",
   },
