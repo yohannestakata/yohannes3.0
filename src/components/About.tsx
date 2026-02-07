@@ -44,7 +44,7 @@ export default function About() {
           over every pixel and every line of code so the end result feels{" "}
           <span className="italic text-accent font-medium">seamless</span>
           . Whether it&apos;s a web app, a mobile experience, or something
-          completely new - I build things that look beautiful, perform fast, and
+          completely new – I build things that look beautiful, perform fast, and
           deliver{" "}
           <span className="italic text-accent font-medium">
             real business value

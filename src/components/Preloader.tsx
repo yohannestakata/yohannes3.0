@@ -42,7 +42,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         transition={{ duration: 0.6 }}
       >
         <p className="text-muted text-[10px] tracking-[0.4em] uppercase">
-          Portfolio - 2026
+          Portfolio – 2026
         </p>
       </motion.div>
 

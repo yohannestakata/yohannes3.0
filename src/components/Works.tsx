@@ -60,7 +60,7 @@ export default function Works() {
           <span className="text-accent">Works</span>
         </h2>
         <p className="hidden md:block text-muted text-[10px] tracking-[0.4em] uppercase">
-          ( 2023 - Present )
+          ( 2023 – Present )
         </p>
       </motion.div>
 
@@ -132,7 +132,7 @@ function ProjectRow({
             animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : -10 }}
             transition={{ duration: 0.3 }}
           >
-            - {project.description}
+            – {project.description}
           </motion.span>
         </div>
 
