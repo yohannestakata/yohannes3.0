@@ -8,7 +8,7 @@ const projects = [
     title: "BOTA REVIEW",
     category: "Web Platform",
     year: "2026",
-    color: "#9d44ee",
+    color: "#10b981",
     description: "Review platform for restaurants and places in Ethiopia",
     href: "https://botareview.com",
   },
