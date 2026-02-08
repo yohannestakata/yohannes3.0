@@ -43,7 +43,7 @@ export default function Navigation({ show }: NavigationProps) {
         YO<span className="text-accent">.</span>TA
       </a>
 
-      <nav className="hidden md:flex items-center gap-8">
+      <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
         {navLinks.map((link) => (
           <a
             key={link.name}
