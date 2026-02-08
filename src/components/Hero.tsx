@@ -53,7 +53,7 @@ export default function Hero({ show }: HeroProps) {
             ( Creative Developer & Designer )
           </motion.p>
 
-          <div className="overflow-hidden">
+          <div className="overflow-hidden py-1">
             <motion.h1
               className="text-[15vw] md:text-[11vw] font-bold leading-[0.88] tracking-[-0.05em] uppercase"
               initial={{ y: "120%" }}
@@ -68,9 +68,9 @@ export default function Hero({ show }: HeroProps) {
             </motion.h1>
           </div>
 
-          <div className="overflow-hidden">
+          <div className="overflow-hidden py-1">
             <motion.h1
-              className="hero-outline text-[15vw] md:text-[11vw] font-bold leading-[0.88] tracking-[-0.05em] uppercase text-transparent"
+              className="text-[15vw] md:text-[11vw] font-bold leading-[0.88] tracking-[-0.05em] uppercase "
               initial={{ y: "120%" }}
               animate={show ? { y: "0%" } : { y: "120%" }}
               transition={{

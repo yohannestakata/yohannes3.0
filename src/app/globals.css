@@ -50,10 +50,6 @@ body {
   border-radius: 2px;
 }
 
-/* Hero outline stroke text */
-.hero-outline {
-  -webkit-text-stroke: 1.5px var(--color-primary);
-}
 
 @media (min-width: 768px) {
   .hero-outline {
