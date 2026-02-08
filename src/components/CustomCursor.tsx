@@ -6,7 +6,6 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 export default function CustomCursor() {
   const [isPointer, setIsPointer] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -40,22 +39,8 @@ export default function CustomCursor() {
       setIsPointer(isClickable);
     };
 
-    const handleMouseDown = () => {
-      setIsClicked(true);
-    };
-
-    const handleMouseUp = () => {
-      setIsClicked(false);
-    };
-
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [cursorX, cursorY]);
 
   if (!isVisible) return null;
@@ -95,11 +80,15 @@ export default function CustomCursor() {
         <motion.div
           className="rounded-full border border-primary/60"
           animate={{
-            width: isClicked ? 20 : isPointer ? 56 : 32,
-            height: isClicked ? 20 : isPointer ? 56 : 32,
+            width: isPointer ? 56 : 32,
+            height: isPointer ? 56 : 32,
             borderColor: isPointer
               ? "rgba(200,238,68,0.8)"
               : "rgba(250,250,250,0.4)",
+          }}
+          whileTap={{
+            width: 20,
+            height: 20,
           }}
           transition={{ duration: 0.2, ease: "easeOut" }}
         />
