@@ -5,6 +5,14 @@ import { motion, useInView } from "motion/react";
 
 const projects = [
   {
+    title: "BOTA REVIEW",
+    category: "Web Platform",
+    year: "2026",
+    color: "#9d44ee",
+    description: "Review platform for restaurants and places in Ethiopia",
+    href: "https://botareview.com",
+  },
+  {
     title: "Z'AGOAL",
     category: "Mobile App",
     year: "2026",
