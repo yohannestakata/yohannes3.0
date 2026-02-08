@@ -1,11 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 
 export default function CustomCursor() {
   const [isPointer, setIsPointer] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
+  const [isVisible] = useState(() =>
+    typeof window !== "undefined"
+      ? window.matchMedia("(pointer: fine)").matches
+      : false
+  );
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -20,11 +25,11 @@ export default function CustomCursor() {
   const ringX = useSpring(cursorX, ringConfig);
   const ringY = useSpring(cursorY, ringConfig);
 
-  useEffect(() => {
-    const hasPointer = window.matchMedia("(pointer: fine)").matches;
-    if (!hasPointer) return;
+  const handleMouseDown = useCallback(() => setIsPressed(true), []);
+  const handleMouseUp = useCallback(() => setIsPressed(false), []);
 
-    setIsVisible(true);
+  useEffect(() => {
+    if (!isVisible) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX);
@@ -40,10 +45,18 @@ export default function CustomCursor() {
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [cursorX, cursorY]);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [cursorX, cursorY, isVisible, handleMouseDown, handleMouseUp]);
 
   if (!isVisible) return null;
+
+  const ringSize = isPressed ? 20 : 32;
 
   return (
     <>
@@ -78,19 +91,15 @@ export default function CustomCursor() {
         }}
       >
         <motion.div
-          className="rounded-full border border-primary/60"
+          className="rounded-full border-2 border-primary/60"
           animate={{
-            width: isPointer ? 56 : 32,
-            height: isPointer ? 56 : 32,
+            width: ringSize,
+            height: ringSize,
             borderColor: isPointer
               ? "rgba(200,238,68,0.8)"
               : "rgba(250,250,250,0.4)",
           }}
-          whileTap={{
-            width: 20,
-            height: 20,
-          }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
+          transition={{ duration: isPressed ? 0.1 : 0.3, ease: "easeOut" }}
         />
       </motion.div>
     </>

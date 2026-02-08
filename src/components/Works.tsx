@@ -8,7 +8,7 @@ const projects = [
     title: "BOTA REVIEW",
     category: "Web Platform",
     year: "2026",
-    color: "#34d399",
+    color: "#10b981",
     description: "Review platform for restaurants and places in Ethiopia",
     href: "https://botareview.com",
   },
@@ -56,34 +56,32 @@ export default function Works() {
       className="py-24 md:py-32 px-6 md:px-12"
       ref={sectionRef}
     >
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          className="flex items-end justify-between mb-16 md:mb-24"
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-        >
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tighter leading-none">
-            Selected
-            <br />
-            <span className="text-accent">Works</span>
-          </h2>
-          <p className="hidden md:block text-muted text-[10px] tracking-[0.4em] uppercase">
-            ( 2023 — Present )
-          </p>
-        </motion.div>
+      <motion.div
+        className="flex items-end justify-between mb-16 md:mb-24"
+        initial={{ opacity: 0, y: 40 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+      >
+        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tighter leading-none">
+          Selected
+          <br />
+          <span className="text-accent">Works</span>
+        </h2>
+        <p className="hidden md:block text-muted text-[10px] tracking-[0.4em] uppercase">
+          ( 2023 — Present )
+        </p>
+      </motion.div>
 
-        <div>
-          {projects.map((project, i) => (
-            <ProjectRow
-              key={project.title}
-              project={project}
-              index={i}
-              isInView={isInView}
-            />
-          ))}
-          <div className="border-t border-line" />
-        </div>
+      <div>
+        {projects.map((project, i) => (
+          <ProjectRow
+            key={project.title}
+            project={project}
+            index={i}
+            isInView={isInView}
+          />
+        ))}
+        <div className="border-t border-line" />
       </div>
     </section>
   );
