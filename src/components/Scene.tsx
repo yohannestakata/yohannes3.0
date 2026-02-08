@@ -23,7 +23,7 @@ function checkWebGL(): boolean {
 
 const PARTICLE_COUNT = 2000;
 const SPHERE_RADIUS = 1;
-const BURST_FORCE = 6;
+const BURST_FORCE = 3;
 
 // ---- Module-level particle data (generated once on import) ----
 const _base = new Float32Array(PARTICLE_COUNT * 3);
@@ -135,7 +135,7 @@ function Blob({
       </bufferGeometry>
       <PointMaterial
         transparent
-        color="#4a6a16"
+        color="#7aa028"
         size={0.025}
         sizeAttenuation
         depthWrite={false}
@@ -186,7 +186,7 @@ export default function Scene({ scrollProgress }: SceneProps) {
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.5} />
-        <pointLight position={[5, 5, 5]} intensity={1} color="#4a6a16" />
+        <pointLight position={[5, 5, 5]} intensity={1} color="#7aa028" />
         <pointLight position={[-3, -2, 4]} intensity={0.3} color="#ffffff" />
         <Blob scrollProgress={scrollProgress} />
         <Environment preset="night" />
