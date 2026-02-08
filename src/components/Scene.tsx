@@ -21,7 +21,7 @@ function checkWebGL(): boolean {
   }
 }
 
-const PARTICLE_COUNT = 2000;
+const PARTICLE_COUNT = 1200;
 const SPHERE_RADIUS = 1;
 const BURST_FORCE = 3;
 
