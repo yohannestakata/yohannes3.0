@@ -26,11 +26,22 @@ export default function Navigation({ show }: NavigationProps) {
 
     if (targetElement && lenis) {
       lenis.scrollTo(targetElement, {
-        offset: -80,
+        offset: 0,
         duration: 1.5,
       });
     } else if (targetElement) {
       targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (lenis) {
+      lenis.scrollTo(0, {
+        duration: 1.5,
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -43,8 +54,9 @@ export default function Navigation({ show }: NavigationProps) {
       role="banner"
     >
       <a
-        href="/"
-        className="text-lg font-bold tracking-tight"
+        href="#"
+        onClick={handleLogoClick}
+        className="text-lg font-bold tracking-tight cursor-pointer"
         aria-label="Yohannes Takata — Home"
       >
         YO<span className="text-accent">.</span>TA
