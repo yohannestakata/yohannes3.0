@@ -4,8 +4,8 @@ import { motion } from "motion/react";
 import { useLenis } from "@/components/SmoothScroll";
 
 const navLinks = [
-  { name: "Work", href: "#work" },
   { name: "About", href: "#about" },
+  { name: "Work", href: "#work" },
   { name: "Contact", href: "#contact" },
 ];
 

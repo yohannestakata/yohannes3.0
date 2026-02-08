@@ -33,7 +33,7 @@ export default function Home() {
           <About />
           <Works />
           <Contact />
-        </main>
+      </main>
         <Footer />
       </SmoothScroll>
     </>
