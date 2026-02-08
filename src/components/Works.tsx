@@ -53,6 +53,7 @@ export default function Works() {
   return (
     <section
       id="work"
+      aria-labelledby="work-heading"
       className="py-24 md:py-32 px-6 md:px-12"
       ref={sectionRef}
     >
@@ -62,7 +63,10 @@ export default function Works() {
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
       >
-        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tighter leading-none">
+        <h2
+          id="work-heading"
+          className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-tighter leading-none"
+        >
           Selected
           <br />
           <span className="text-accent">Works</span>
@@ -72,7 +76,7 @@ export default function Works() {
         </p>
       </motion.div>
 
-      <div>
+      <div role="list" aria-label="Portfolio projects">
         {projects.map((project, i) => (
           <ProjectRow
             key={project.title}
@@ -81,7 +85,7 @@ export default function Works() {
             isInView={isInView}
           />
         ))}
-        <div className="border-t border-line" />
+        <div className="border-t border-line" aria-hidden="true" />
       </div>
     </section>
   );
@@ -103,6 +107,8 @@ function ProjectRow({
       href={project.href}
       target={project.href !== "#" ? "_blank" : undefined}
       rel={project.href !== "#" ? "noopener noreferrer" : undefined}
+      aria-label={`${project.title} — ${project.description} (${project.year})`}
+      role="listitem"
       className="group block border-t border-line py-6 md:py-8"
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -120,6 +126,7 @@ function ProjectRow({
             className="text-xs font-mono w-6"
             animate={{ color: isHovered ? project.color : "#555555" }}
             transition={{ duration: 0.3 }}
+            aria-hidden="true"
           >
             {(index + 1).toString().padStart(2, "0")}
           </motion.span>
@@ -148,7 +155,9 @@ function ProjectRow({
           <span className="hidden md:block text-muted text-[10px] tracking-[0.2em] uppercase">
             {project.category}
           </span>
-          <span className="text-muted text-xs">{project.year}</span>
+          <time className="text-muted text-xs" dateTime={project.year}>
+            {project.year}
+          </time>
 
           <motion.div
             className="w-10 h-10 rounded-full border flex items-center justify-center overflow-hidden"
@@ -157,6 +166,7 @@ function ProjectRow({
               borderColor: isHovered ? project.color : "#252525",
             }}
             transition={{ duration: 0.3 }}
+            aria-hidden="true"
           >
             <motion.div
               animate={{ rotate: isHovered ? 45 : 0 }}

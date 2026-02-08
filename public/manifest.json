@@ -1,0 +1,16 @@
+{
+  "name": "Yohannes Takata — Creative Developer & Designer",
+  "short_name": "Yohannes Takata",
+  "description": "Creative developer and designer based in Ethiopia, building polished web and mobile experiences.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e0e0e",
+  "theme_color": "#0e0e0e",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

@@ -15,10 +15,17 @@ const items = [
 
 export default function Marquee() {
   return (
-    <section className="py-5 border-y border-line overflow-hidden">
+    <section
+      className="py-5 border-y border-line overflow-hidden"
+      aria-label="Skills and technologies"
+    >
       <div className="flex animate-marquee hover:[animation-play-state:paused]">
         {[0, 1].map((setIndex) => (
-          <div key={setIndex} className="flex shrink-0" aria-hidden={setIndex === 1}>
+          <div
+            key={setIndex}
+            className="flex shrink-0"
+            aria-hidden={setIndex === 1}
+          >
             {items.map((item, i) => (
               <div
                 key={`${setIndex}-${i}`}
@@ -27,7 +34,10 @@ export default function Marquee() {
                 <span className="text-sm md:text-base font-medium uppercase tracking-[0.2em] whitespace-nowrap px-5 md:px-8">
                   {item}
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                <span
+                  className="w-1.5 h-1.5 rounded-full bg-accent shrink-0"
+                  aria-hidden="true"
+                />
               </div>
             ))}
           </div>

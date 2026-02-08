@@ -26,16 +26,23 @@ export default function Hero({ show }: HeroProps) {
   return (
     <section
       ref={heroRef}
+      aria-label="Hero"
       className="relative h-screen flex flex-col px-6 md:px-12"
     >
-      {/* 3D Scene — full coverage */}
-      <div className="absolute inset-0 opacity-70">
+      {/* 3D Scene — full coverage, decorative */}
+      <div className="absolute inset-0 opacity-70" aria-hidden="true">
         <Scene scrollProgress={scrollRef} />
       </div>
 
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-dark/50 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent pointer-events-none" />
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-dark/50 pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent pointer-events-none"
+        aria-hidden="true"
+      />
 
       {/* Nav clearance */}
       <div className="pt-20" />
@@ -53,9 +60,16 @@ export default function Hero({ show }: HeroProps) {
             ( Creative Developer & Designer )
           </motion.p>
 
+          {/* Single h1 wrapping the full name for SEO — one h1 per page */}
+          <h1 className="sr-only">
+            Yohannes Takata — Creative Developer &amp; Designer based in
+            Ethiopia
+          </h1>
+
           <div className="overflow-hidden py-1">
-            <motion.h1
-              className="text-[15vw] md:text-[11vw] font-bold leading-[0.88] tracking-[-0.05em] uppercase"
+            <motion.span
+              role="presentation"
+              className="block text-[15vw] md:text-[11vw] font-bold leading-[0.88] tracking-[-0.05em] uppercase"
               initial={{ y: "120%" }}
               animate={show ? { y: "0%" } : { y: "120%" }}
               transition={{
@@ -65,12 +79,13 @@ export default function Hero({ show }: HeroProps) {
               }}
             >
               Yohannes
-            </motion.h1>
+            </motion.span>
           </div>
 
           <div className="overflow-hidden py-1">
-            <motion.h1
-              className="text-[15vw] md:text-[11vw] font-bold leading-[0.88] tracking-[-0.05em] uppercase "
+            <motion.span
+              role="presentation"
+              className="block text-[15vw] md:text-[11vw] font-bold leading-[0.88] tracking-[-0.05em] uppercase"
               initial={{ y: "120%" }}
               animate={show ? { y: "0%" } : { y: "120%" }}
               transition={{
@@ -80,7 +95,7 @@ export default function Hero({ show }: HeroProps) {
               }}
             >
               Takata
-            </motion.h1>
+            </motion.span>
           </div>
         </div>
 
@@ -91,7 +106,7 @@ export default function Hero({ show }: HeroProps) {
           animate={show ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.7 }}
         >
-          <div className="w-12 h-px bg-accent" />
+          <div className="w-12 h-px bg-accent" aria-hidden="true" />
           <p className="text-secondary text-sm leading-relaxed text-right">
             Building polished web &amp; mobile experiences from Ethiopia for
             clients worldwide.
@@ -115,7 +130,11 @@ export default function Hero({ show }: HeroProps) {
           Based in Ethiopia
         </p>
 
-        <div className="flex flex-col items-center gap-2">
+        <div
+          className="flex flex-col items-center gap-2"
+          role="presentation"
+          aria-hidden="true"
+        >
           <span className="text-[10px] tracking-[0.35em] uppercase text-muted">
             Scroll
           </span>

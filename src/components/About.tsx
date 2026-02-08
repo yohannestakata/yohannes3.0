@@ -26,7 +26,6 @@ const accentPhrases = [
 
 // Split into words while preserving accent info
 const words = paragraph.split(" ").map((word) => {
-  // Check if this word starts or continues an accent phrase
   const isAccent = accentPhrases.some((phrase) => {
     const phraseWords = phrase.split(" ");
     return phraseWords.some(
@@ -47,17 +46,22 @@ export default function About() {
   });
 
   return (
-    <section id="about" className="py-24 md:py-40 px-6 md:px-12">
+    <section
+      id="about"
+      aria-labelledby="about-heading"
+      className="py-24 md:py-40 px-6 md:px-12"
+    >
       <div className="max-w-6xl mx-auto">
-        <motion.p
+        <motion.h2
+          id="about-heading"
           className="text-[10px] tracking-[0.4em] uppercase text-muted mb-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          ( About )
-        </motion.p>
+          About
+        </motion.h2>
 
         {/* Per-word scroll opacity paragraph — Olivier Larose style */}
         <p
@@ -80,10 +84,13 @@ export default function About() {
         <div
           ref={statsRef}
           className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-16 md:mt-24 pt-8 border-t border-line"
+          role="list"
+          aria-label="Key statistics"
         >
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
+              role="listitem"
               initial={{ opacity: 0, y: 30 }}
               animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
