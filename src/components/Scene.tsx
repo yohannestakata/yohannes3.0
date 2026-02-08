@@ -21,9 +21,9 @@ function checkWebGL(): boolean {
   }
 }
 
-const PARTICLE_COUNT = 5000;
+const PARTICLE_COUNT = 1200;
 const SPHERE_RADIUS = 1;
-const BURST_FORCE = 1;
+const BURST_FORCE = 3;
 
 // ---- Module-level particle data (generated once on import) ----
 const _base = new Float32Array(PARTICLE_COUNT * 3);

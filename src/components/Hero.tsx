@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useMotionValueEvent } from "motion/react";
+import { motion } from "motion/react";
 import dynamic from "next/dynamic";
 
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
@@ -11,131 +10,97 @@ interface HeroProps {
 }
 
 export default function Hero({ show }: HeroProps) {
-  const heroRef = useRef<HTMLElement>(null);
-  const scrollRef = useRef(0);
-
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    scrollRef.current = v;
-  });
-
   return (
-    <section
-      ref={heroRef}
-      className="relative h-screen flex flex-col px-6 md:px-12"
-    >
-      {/* 3D Scene — full coverage */}
-      <div className="absolute inset-0 opacity-70">
-        <Scene scrollProgress={scrollRef} />
+    <section className="relative h-screen flex flex-col justify-center overflow-hidden">
+      {/* 3D Background */}
+      <div className="absolute inset-0 opacity-60">
+        <Scene />
       </div>
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-dark/50 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent pointer-events-none" />
+      {/* Gradient overlays for depth */}
+      <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-dark/60 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-dark/30 via-transparent to-dark/30 pointer-events-none" />
 
-      {/* Nav clearance */}
-      <div className="pt-20" />
-
-      {/* ---- Center: Name left + description right ---- */}
-      <div className="relative z-10 flex-1 flex items-center pointer-events-none">
-        {/* Left — Name stack */}
-        <div className="flex-1">
-          <motion.p
-            className="text-[10px] tracking-[0.4em] uppercase text-muted mb-4"
-            initial={{ opacity: 0, y: 10 }}
-            animate={show ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
+      {/* Content */}
+      <div className="relative z-10 px-6 md:px-12">
+        {/* First name */}
+        <div className="overflow-hidden">
+          <motion.h1
+            className="text-[15vw] md:text-[12vw] font-bold leading-[0.85] tracking-[-0.04em] uppercase"
+            initial={{ y: "120%" }}
+            animate={show ? { y: "0%" } : { y: "120%" }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.76, 0, 0.24, 1] }}
           >
-            ( Creative Developer & Designer )
-          </motion.p>
-
-          <div className="overflow-hidden">
-            <motion.h1
-              className="text-[15vw] md:text-[11vw] font-bold leading-[0.88] tracking-[-0.05em] uppercase"
-              initial={{ y: "120%" }}
-              animate={show ? { y: "0%" } : { y: "120%" }}
-              transition={{
-                duration: 1,
-                delay: 0.1,
-                ease: [0.76, 0, 0.24, 1],
-              }}
-            >
-              Yohannes
-            </motion.h1>
-          </div>
-
-          <div className="overflow-hidden">
-            <motion.h1
-              className="hero-outline text-[15vw] md:text-[11vw] font-bold leading-[0.88] tracking-[-0.05em] uppercase text-transparent"
-              initial={{ y: "120%" }}
-              animate={show ? { y: "0%" } : { y: "120%" }}
-              transition={{
-                duration: 1,
-                delay: 0.2,
-                ease: [0.76, 0, 0.24, 1],
-              }}
-            >
-              Takata
-            </motion.h1>
-          </div>
+            Yohannes
+          </motion.h1>
         </div>
 
-        {/* Right — Description block (desktop only) */}
+        {/* Divider with subtitle */}
         <motion.div
-          className="hidden md:flex flex-col items-end gap-6 max-w-[200px] shrink-0 ml-8"
-          initial={{ opacity: 0, x: 20 }}
-          animate={show ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.7 }}
+          className="flex items-center gap-4 md:gap-8 my-3 md:my-5"
+          initial={{ opacity: 0 }}
+          animate={show ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <div className="w-12 h-px bg-accent" />
-          <p className="text-secondary text-sm leading-relaxed text-right">
-            Building polished web &amp; mobile experiences from Ethiopia for
-            clients worldwide.
+          <motion.div
+            className="h-px bg-line flex-1"
+            initial={{ scaleX: 0 }}
+            animate={show ? { scaleX: 1 } : { scaleX: 0 }}
+            transition={{ duration: 1, delay: 0.7, ease: [0.76, 0, 0.24, 1] }}
+            style={{ transformOrigin: "left" }}
+          />
+          <p className="text-[10px] md:text-xs text-secondary tracking-[0.35em] uppercase whitespace-nowrap">
+            Creative Developer &amp; Designer
           </p>
-          <p className="text-[10px] tracking-[0.3em] uppercase text-muted text-right">
-            ( 2023 — Present )
-          </p>
+          <motion.div
+            className="h-px bg-line flex-1"
+            initial={{ scaleX: 0 }}
+            animate={show ? { scaleX: 1 } : { scaleX: 0 }}
+            transition={{ duration: 1, delay: 0.7, ease: [0.76, 0, 0.24, 1] }}
+            style={{ transformOrigin: "right" }}
+          />
         </motion.div>
+
+        {/* Last name */}
+        <div className="overflow-hidden">
+          <motion.h1
+            className="text-[15vw] md:text-[12vw] font-bold leading-[0.85] tracking-[-0.04em] uppercase text-right"
+            initial={{ y: "120%" }}
+            animate={show ? { y: "0%" } : { y: "120%" }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.76, 0, 0.24, 1] }}
+          >
+            Takata
+          </motion.h1>
+        </div>
       </div>
 
-      {/* ---- Bottom bar ---- */}
+      {/* Scroll indicator */}
       <motion.div
-        className="relative z-10 pb-8 flex items-end justify-between border-t border-line pt-5 pointer-events-none"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
         initial={{ opacity: 0 }}
-        animate={show ? { opacity: 1 } : {}}
-        transition={{ duration: 0.8, delay: 1 }}
+        animate={show ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
       >
-        <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-muted">
-          Developer & Designer
-          <br />
-          Based in Ethiopia
-        </p>
-
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-[10px] tracking-[0.35em] uppercase text-muted">
-            Scroll
-          </span>
-          <motion.div className="w-px h-10 overflow-hidden">
-            <motion.div
-              className="w-full h-full bg-gradient-to-b from-accent to-transparent"
-              animate={{ y: ["-100%", "100%"] }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                repeatDelay: 0.5,
-              }}
-            />
-          </motion.div>
-        </div>
-
-        <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-muted text-right">
-          Portfolio &apos;26
-        </p>
+        <span className="text-[10px] tracking-[0.35em] uppercase text-muted">
+          Scroll
+        </span>
+        <motion.div
+          className="w-px h-12 overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={show ? { opacity: 1 } : {}}
+          transition={{ delay: 1.6 }}
+        >
+          <motion.div
+            className="w-full h-full bg-gradient-to-b from-accent to-transparent"
+            animate={{ y: ["-100%", "100%"] }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              repeatDelay: 0.5,
+            }}
+          />
+        </motion.div>
       </motion.div>
     </section>
   );
