@@ -21,7 +21,7 @@ function checkWebGL(): boolean {
   }
 }
 
-const PARTICLE_COUNT = 3500;
+const PARTICLE_COUNT = 2000;
 const SPHERE_RADIUS = 1;
 const BURST_FORCE = 6;
 
@@ -135,7 +135,7 @@ function Blob({
       </bufferGeometry>
       <PointMaterial
         transparent
-        color="#7aa028"
+        color="#4a6a16"
         size={0.025}
         sizeAttenuation
         depthWrite={false}
@@ -168,7 +168,7 @@ export default function Scene({ scrollProgress }: SceneProps) {
 
   return (
     <Canvas
-      camera={{ position: [-0.8, 0, 5.5], fov: 45 }}
+      camera={{ position: [0, 0, 5.5], fov: 45 }}
       dpr={[1, 1.5]}
       gl={{
         antialias: true,
@@ -186,7 +186,7 @@ export default function Scene({ scrollProgress }: SceneProps) {
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.5} />
-        <pointLight position={[5, 5, 5]} intensity={1} color="#7aa028" />
+        <pointLight position={[5, 5, 5]} intensity={1} color="#4a6a16" />
         <pointLight position={[-3, -2, 4]} intensity={0.3} color="#ffffff" />
         <Blob scrollProgress={scrollProgress} />
         <Environment preset="night" />
